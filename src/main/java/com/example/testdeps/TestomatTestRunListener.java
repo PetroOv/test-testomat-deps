@@ -8,7 +8,6 @@ import org.testng.ISuite;
 
 public class TestomatTestRunListener extends TestNgListener {
 
-  private static final String JENKINS_JOB_PREFIX = "https://jenkins.solidgate-dev.com/job/aqa/job/";
 
   @Override
   public boolean isEnabled() {
