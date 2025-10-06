@@ -1,0 +1,45 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.9.3'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    allureVersion = '2.29.0'
+}
+
+sourceCompatibility = '21'
+targetCompatibility = '21'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation('com.codeborne:selenide-testng:7.6.0')
+    testImplementation("io.qameta.allure:allure-selenide:${allureVersion}")
+    testImplementation('org.slf4j:slf4j-simple:2.0.16')
+
+    implementation('org.testng:testng:7.10.2')
+    implementation 'io.testomat:java-reporter-testng:0.8.2'
+}
+
+test {
+    println "Initial Heap (Xms): ${Runtime.runtime.totalMemory() / (1024 * 1024)} MB"
+    println "Max Heap (Xmx): ${Runtime.runtime.maxMemory() / (1024 * 1024)} MB"
+    useTestNG()
+}
+allure {
+    autoconfigure = true
+    version = "${allureVersion}"
+
+    useTestNG {
+        version = "${allureVersion}"
+    }
+}
